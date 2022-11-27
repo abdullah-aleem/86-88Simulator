@@ -1,3 +1,4 @@
+
 opcode = {
     "MOV": "100010","SUB": '',
     "NEG": '111101',"DIV": '111101',
@@ -28,3 +29,9 @@ if operator == "MOV":
         if RM in reg0.keys() or RM== reg1.keys():
             MOD= '11'
     print(opcode["MOV"],reg1["DX"],reg1["AX"])
+
+
+
+
+#iqras code
+tokeni
