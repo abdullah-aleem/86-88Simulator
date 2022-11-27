@@ -1,3 +1,4 @@
+
 opcode = {
     "MOV": "100010","SUB": '',
     "NEG": '111101',"DIV": '111101',
@@ -26,5 +27,5 @@ reg= input("enter register")
 if operator == "MOV":
     if RM=='DX' and reg=='AX':
         if RM in reg0.keys() or RM== reg1.keys():
-            print('yes')
-    # print(opcode["MOV"],reg1["DX"],reg1["AX"])
+            MOD= '11'
+    print(opcode["MOV"],reg1["DX"],reg1["AX"])
