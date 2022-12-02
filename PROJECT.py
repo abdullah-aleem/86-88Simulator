@@ -57,7 +57,7 @@ window.configure(background='light blue')
 def getvals():
     if instructionentry != 0 and Button:
         print('10101010 00001111')
-        Label(window, text='10101010 00001111', font='ar 9').grid(row=3, column=3)
+        Label(window, text='10101010 00001111', font='ar 9').grid(row=4, column=3)
 
 #Heading
 Label(window, text='Assembly Language to Machine Code Convertor', font='ar 11 bold', pady=30).grid(row=0, column=3)
