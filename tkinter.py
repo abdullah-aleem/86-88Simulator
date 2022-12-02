@@ -1,13 +1,3 @@
-def split_instruction():
-    x = inst.split(" ")
-    print(x)
-    y = x[1]
-    z = y.split(",")
-    print(z[0])
-    print(z[1])
-
-split_instruction()
-
 #tkinter window
 from tkinter import *
 window = Tk()
