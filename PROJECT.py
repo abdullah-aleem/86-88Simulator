@@ -107,7 +107,8 @@ Word()
 if flag:
     match opr:
             case "MOV"|"SUB"|"OR"|"XOR"|"ADD"|"AND":
-                print(opcode[opr],D,word,MOD,dic[operand1],dic[operand2])
+            
+                #print(opcode[opr],D,word,MOD,dic[operand1],dic[operand2])
             case "NEG":
                 rrr="011"
             case "DIV":
@@ -118,12 +119,15 @@ if flag:
                 rrr="100"
             case "NOT":
                 rrr='010'
+                contents_reg0[y] = not contents_reg0[y]
+                print(contents_reg0[y])
             case "IMUL":
                 rrr="101"
             case "IDIV":
                 rrr="111"
             case "DEC":
                 rrr='001'
+
     if bool==False:
         print(opcode[opr],D,word,MOD,rrr,dic[y])
        
