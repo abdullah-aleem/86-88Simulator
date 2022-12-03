@@ -157,7 +157,7 @@ if flag:
                 
             case "NEG":
                 rrr="011"
-                print(hex(int(contents_reg0[operand1], 16)*-1).lstrip('0x'))
+                print(tohex(int(contents_reg0[operand1], 16)*-1).lstrip('0x'))
                 # def to_hex(val, nbits):
                 #     return hex((val + (1 << nbits)) % (1 << nbits)).lstrip('0x')
             case "DIV":
