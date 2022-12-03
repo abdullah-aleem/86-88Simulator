@@ -1,3 +1,4 @@
+import App as application
 
-print("hello world")
-
+if __name__ == '__main__':
+    application.run()   
