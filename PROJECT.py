@@ -13,6 +13,7 @@ reg1={
     "AX": "000","CX": "001","DX": "010","BX": "011", 
     "SP": "100","BP": "101","SI": "100","DI": "111" }
 # contents of memory locations
+
 M0000=00
 M0001=00
 M0010=00
@@ -41,14 +42,8 @@ SI=0000
 DI=0000
 
 # contents of 8 bits registers
-AL=00
-CL=00
-DL=00
-BL=00
-AH=00
-CH=00
-DH=00
-BH=00
+contents_reg0={"AL":10,"CL":11,"DL":00,"BL":00,"AH":00,"CH":00,"DH":00,"BH":00}
+
 
 # mmm={
 #     "[BX+SI]": "000","[BX+DI]": "001","[BP+SI]": "010","[BP+DI]": "011", 
@@ -107,10 +102,16 @@ Word()
 if flag:
     match opr:
             case "MOV"|"SUB"|"OR"|"XOR"|"ADD"|"AND":
-            
-                #print(opcode[opr],D,word,MOD,dic[operand1],dic[operand2])
+                if opr== "AND":
+                    contents_reg0[operand1]=contents_reg0[operand1]&contents_reg0[operand2]
+                    print(contents_reg0[operand1])
+
+                    # print(opcode[opr],D,word,MOD,dic[operand1],dic[operand2])
+                
             case "NEG":
                 rrr="011"
+                def to_hex(val, nbits):
+                    return hex((val + (1 << nbits)) % (1 << nbits)).lstrip('0x')
             case "DIV":
                 rrr='110'
             case "INC":
@@ -119,8 +120,6 @@ if flag:
                 rrr="100"
             case "NOT":
                 rrr='010'
-                contents_reg0[y] = not contents_reg0[y]
-                print(contents_reg0[y])
             case "IMUL":
                 rrr="101"
             case "IDIV":
