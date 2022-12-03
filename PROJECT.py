@@ -103,28 +103,29 @@ if flag:
                     elif opr=="SUB":
                         dec=(int(contents_reg0[operand1],16))-(int(contents_reg0[operand2],16))
                         contents_reg0=str((hex(dec).lstrip('0x')))
+                print(opcode[opr],D,word,MOD,dic[operand1],dic[operand2])
 
-<<<<<<< HEAD
-            elif operand1[0]="[" and operand2 in reg0:
-                MOD=00
+                elif operand1[0]="[" and operand2 in reg0:
+                    MOD=00
                     if opr== "AND":
                     contents_mem[operand1]=str(contents_mem[operand1]&contents_reg0[operand2])
                     print(contents_mem[operand1])
-                elif opr== "OR":
-                    contents_mem[operand1]=str(contents_mem[operand1]|contents_reg0[operand2])
-                    print(contents_mem[operand1])
-                elif opr== "XOR":
-                    contents_mem[operand1]=str(contents_mem[operand1]^contents_reg0[operand2])
-                    print(contents_mem[operand1])
-                elif opr=="ADD":
-                    dec=(int(contents_mem[operand1],16))+(int(contents_reg0[operand2],16))
-                    contents_mem[operand1]=str((hex(dec).lstrip('0x')))
-                elif opr=="MOV":
-                    contents_mem[operand1]=str(contents_reg0[operand2])
-                elif opr=="SUB":
-                    dec=(int(contents_mem[operand1],16))-(int(contents_reg0[operand2],16))
-                    contents_mem=str((hex(dec).lstrip('0x')))
-=======
+                    elif opr== "OR":
+                        contents_mem[operand1]=str(contents_mem[operand1]|contents_reg0[operand2])
+                        print(contents_mem[operand1])
+                    elif opr== "XOR":
+                        contents_mem[operand1]=str(contents_mem[operand1]^contents_reg0[operand2])
+                        print(contents_mem[operand1])
+                    elif opr=="ADD":
+                        dec=(int(contents_mem[operand1],16))+(int(contents_reg0[operand2],16))
+                        contents_mem[operand1]=str((hex(dec).lstrip('0x')))
+                    elif opr=="MOV":
+                        contents_mem[operand1]=str(contents_reg0[operand2])
+                    elif opr=="SUB":
+                        dec=(int(contents_mem[operand1],16))-(int(contents_reg0[operand2],16))
+                        contents_mem=str((hex(dec).lstrip('0x')))
+                print(opcode[opr],D,word,MOD,mmm,reg0[operand2])
+
                 elif operand1 in reg0 and operand2[0]=="[":
                     MOD=00
                     if opr== "AND":
@@ -144,12 +145,12 @@ if flag:
                     elif opr=="SUB":
                         dec=(int(contents_reg0[operand1],16))-(int(contents_mem[operand2],16))
                         contents_reg0=str((hex(dec).lstrip('0x')))
+                print(opcode[opr],D,word,MOD,reg0[operand1],mmm)
 
               
 
->>>>>>> 1df1e7f9adba0cf62e540abd2b7545ff90eac68c
 
-                    # print(opcode[opr],D,word,MOD,dic[operand1],dic[operand2])
+                   
                 
             case "NEG":
                 rrr="011"
@@ -179,7 +180,7 @@ if flag:
                 dec=int(contents_reg0[y],16)-1
                 print(hex(dec).lstrip('0x'))
     # if bool==False:
-    #     # print(opcode[opr],D,word,MOD,rrr,dic[y])
+    #     print(opcode[opr],D,word,MOD,rrr,reg0[y])
        
         
 
