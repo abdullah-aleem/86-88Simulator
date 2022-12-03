@@ -42,7 +42,7 @@ SI=0000
 DI=0000
 
 # contents of 8 bits registers
-contents_reg0={"AL":10,"CL":11,"DL":00,"BL":00,"AH":00,"CH":00,"DH":00,"BH":00}
+contents_reg0={"AL":"111","CL":"101","DL":"00","BL":"00","AH":"00","CH":"00","DH":"00","BH":"00"}
 
 
 # mmm={
@@ -62,9 +62,6 @@ if length>6:
     operand1 = z[0]
     operand2 = z[1]
 
-#         if RM in reg0 or RM in reg1:
-#             MOD= '11'
-#     print(opcode["opr"],reg1["reg"],reg1["RM"])
 
 def Word():
     global word,dic,flag
@@ -89,12 +86,12 @@ def Word():
         else:
             print("invalid operands")
 
-# def Direction():
-#     global D
-#     if operand1[0]=="[":
-#         D=0
-#     elif operand2[0]=="[":
-#         D=1
+def Direction():
+    global D
+    if operand1[0]=="[":
+        D=0
+    elif operand2[0]=="[":
+        D=1
 MOD="11"
 D="1"
 flag=True
@@ -103,31 +100,54 @@ if flag:
     match opr:
             case "MOV"|"SUB"|"OR"|"XOR"|"ADD"|"AND":
                 if opr== "AND":
-                    contents_reg0[operand1]=contents_reg0[operand1]&contents_reg0[operand2]
+                    contents_reg0[operand1]=str(contents_reg0[operand1]&contents_reg0[operand2])
                     print(contents_reg0[operand1])
+                elif opr== "OR":
+                    contents_reg0[operand1]=str(contents_reg0[operand1]|contents_reg0[operand2])
+                    print(contents_reg0[operand1])
+                elif opr== "XOR":
+                    contents_reg0[operand1]=str(contents_reg0[operand1]^contents_reg0[operand2])
+                    print(contents_reg0[operand1])
+                elif opr=="ADD":
+                    dec=(int(contents_reg0[operand1],16))+(int(contents_reg0[operand2],16))
+                    contents_reg0[operand1]=str((hex(dec).lstrip('0x')))
+                elif opr=="MOV":
+                    contents_reg0[operand1]=str(contents_reg0[operand2])
+                elif opr=="SUB":
+                    dec=(int(contents_reg0[operand1],16))-(int(contents_reg0[operand2],16))
+                    contents_reg0=str((hex(dec).lstrip('0x')))
+
+
 
                     # print(opcode[opr],D,word,MOD,dic[operand1],dic[operand2])
                 
             case "NEG":
                 rrr="011"
-                def to_hex(val, nbits):
-                    return hex((val + (1 << nbits)) % (1 << nbits)).lstrip('0x')
+                # def to_hex(val, nbits):
+                #     return hex((val + (1 << nbits)) % (1 << nbits)).lstrip('0x')
             case "DIV":
                 rrr='110'
             case "INC":
                 rrr="000"
+                dec=int(contents_reg0[y],16)+1
+                print(hex(dec).lstrip('0x'))
             case "MUL":
                 rrr="100"
+                x.__mul__(y)
             case "NOT":
                 rrr='010'
+                # abc= ~hex(contents_reg0[y])
+                # print(abc)
             case "IMUL":
                 rrr="101"
             case "IDIV":
                 rrr="111"
             case "DEC":
                 rrr='001'
-    if bool==False:
-        print(opcode[opr],D,word,MOD,rrr,dic[y])
+                dec=int(contents_reg0[y],16)-1
+                print(hex(dec).lstrip('0x'))
+    # if bool==False:
+    #     # print(opcode[opr],D,word,MOD,rrr,dic[y])
        
         
 
