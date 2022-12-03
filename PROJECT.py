@@ -86,6 +86,9 @@ def Word():
         else:
             print("invalid operands")
 
+
+def tohex(val, nbits):
+  return hex((val + (1 << nbits)) % (1 << nbits))
 def Direction():
     global D
     if operand1[0]=="[":
@@ -123,6 +126,7 @@ if flag:
                 
             case "NEG":
                 rrr="011"
+                print(hex(int(contents_reg0[operand1], 16)*-1).lstrip('0x'))
                 # def to_hex(val, nbits):
                 #     return hex((val + (1 << nbits)) % (1 << nbits)).lstrip('0x')
             case "DIV":
@@ -145,7 +149,7 @@ if flag:
             case "DEC":
                 rrr='001'
                 dec=int(contents_reg0[y],16)-1
-                print(hex(dec).lstrip('0x'))
+                print(tohex(dec,64).lstrip('0x'))
     # if bool==False:
     #     # print(opcode[opr],D,word,MOD,rrr,dic[y])
        
