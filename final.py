@@ -88,134 +88,135 @@ def start():
         z = y.split(",")
         operand1 = z[0]
         operand2 = z[1]
-    match opr:
-        case "MOV" | "SUB" | "OR" | "XOR" | "ADD" | "AND":
-            Direction()
-            MOD_1()
-            if operand1 in reg0 and operand2 in reg0:
-                rule=1
-                if opr == "AND":
-                    contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) & int(
-                        contents_reg0[operand2], 16)).lstrip('0x'))
-                    print(contents_reg0[operand1])
-                elif opr == "OR":
-                    contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) | int(
-                        contents_reg0[operand2], 16)).lstrip('0x'))
-                    print(contents_reg0[operand1])
-                elif opr == "XOR":
-                    contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) ^ int(
-                        contents_reg0[operand2], 16)).lstrip('0x'))
-                    print(contents_reg0[operand1])
-                elif opr == "ADD":
-                    dec = (int(contents_reg0[operand1], 16)) + \
-                        (int(contents_reg0[operand2], 16))
-                    contents_reg0[operand1] = str((hex(dec).lstrip('0x')))
-                elif opr == "MOV":
-                    contents_reg0[operand1] = str(contents_reg0[operand2])
-                elif opr == "SUB":
-                    dec = (int(contents_reg0[operand1], 16)) - \
-                        (int(contents_reg0[operand2], 16))
-                    contents_reg0 = str((hex(dec).lstrip('0x')))
-                Label(window, text=str(
-                    opcode[opr]+ D+word+ MOD+ reg0[operand1]+ reg0[operand2]), font='ar 9').grid(row=4, column=3)
-            elif operand1[0] == "[" and operand2 in reg0:
-                rule=2
-                operand1 = operand1.lstrip("[")
-                operand1 = operand1.rstrip("]")
-                print(operand1)
-                if opr == "AND":
-                    contents_mem[operand1] = str(hex(int(contents_mem[operand1], 16) & int(
-                        contents_reg0[operand2], 16)).lstrip('0x'))
-                    print(contents_mem[operand1])
-                elif opr == "OR":
-                    contents_mem[operand1] = str(hex(int(contents_mem[operand1], 16) | int(
-                        contents_reg0[operand2], 16)).lstrip('0x'))
-                    print(contents_mem[operand1])
-                elif opr == "XOR":
-                    contents_mem[operand1] = str(hex(int(contents_mem[operand1], 16) ^ int(
-                        contents_reg0[operand2], 16)).lstrip('0x'))
-                    print(contents_mem[operand1])
-                elif opr == "ADD":
-                    dec = (int(contents_mem[operand1], 16)) + \
-                        (int(contents_reg0[operand2], 16))
-                    contents_mem[operand1] = str((hex(dec).lstrip('0x')))
-                elif opr == "MOV":
-                    contents_mem[operand1] = str(contents_reg0[operand2])
-                elif opr == "SUB":
-                    dec = (int(contents_mem[operand1], 16)) - \
-                        (int(contents_reg0[operand2], 16))
-                    contents_mem[operand1] = str((hex(dec).lstrip('0x')))
-                Label(window,text=str(opcode[opr]+D+word+MOD+reg0[operand2]+mmm)).grid(row=4, column=3)
+    
+    if opr=="MOV" or opr== "SUB" or opr== "OR" or  opr=="XOR" or opr== "ADD" or opr== "AND" :
+        Direction()
+        MOD_1()
+        if operand1 in reg0 and operand2 in reg0:
+            rule=1
+            if opr == "AND":
+                contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) & int(
+                    contents_reg0[operand2], 16)).lstrip('0x'))
+                print(contents_reg0[operand1])
+            elif opr == "OR":
+                contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) | int(
+                    contents_reg0[operand2], 16)).lstrip('0x'))
+                print(contents_reg0[operand1])
+            elif opr == "XOR":
+                contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) ^ int(
+                    contents_reg0[operand2], 16)).lstrip('0x'))
+                print(contents_reg0[operand1])
+            elif opr == "ADD":
+                dec = (int(contents_reg0[operand1], 16)) + \
+                    (int(contents_reg0[operand2], 16))
+                contents_reg0[operand1] = str((hex(dec).lstrip('0x')))
+            elif opr == "MOV":
+                contents_reg0[operand1] = str(contents_reg0[operand2])
+            elif opr == "SUB":
+                dec = (int(contents_reg0[operand1], 16)) - \
+                    (int(contents_reg0[operand2], 16))
+                contents_reg0 = str((hex(dec).lstrip('0x')))
+            Label(window, text=str(
+                opcode[opr]+ D+word+ MOD+ reg0[operand1]+ reg0[operand2]), font='ar 9').grid(row=4, column=3)
+        elif operand1[0] == "[" and operand2 in reg0:
+            rule=2
+            operand1 = operand1.lstrip("[")
+            operand1 = operand1.rstrip("]")
+            print(operand1)
+            if opr == "AND":
+                contents_mem[operand1] = str(hex(int(contents_mem[operand1], 16) & int(
+                    contents_reg0[operand2], 16)).lstrip('0x'))
+                print(contents_mem[operand1])
+            elif opr == "OR":
+                contents_mem[operand1] = str(hex(int(contents_mem[operand1], 16) | int(
+                    contents_reg0[operand2], 16)).lstrip('0x'))
+                print(contents_mem[operand1])
+            elif opr == "XOR":
+                contents_mem[operand1] = str(hex(int(contents_mem[operand1], 16) ^ int(
+                    contents_reg0[operand2], 16)).lstrip('0x'))
+                print(contents_mem[operand1])
+            elif opr == "ADD":
+                dec = (int(contents_mem[operand1], 16)) + \
+                    (int(contents_reg0[operand2], 16))
+                contents_mem[operand1] = str((hex(dec).lstrip('0x')))
+            elif opr == "MOV":
+                contents_mem[operand1] = str(contents_reg0[operand2])
+            elif opr == "SUB":
+                dec = (int(contents_mem[operand1], 16)) - \
+                    (int(contents_reg0[operand2], 16))
+                contents_mem[operand1] = str((hex(dec).lstrip('0x')))
+            Label(window, text=str(
+                opcode[opr]+D+word+MOD+reg0[operand2]+mmm)).grid(row=4, column=3).grid(row=4, column=3)
 
-                
+            
 
-            elif operand1 in reg0 and operand2[0] == "[":
-                rule=3
-                operand2 = operand2.lstrip("[")
-                operand2 = operand2.rstrip("]")
-                print(operand2)
-                if opr == "AND":
-                    contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) & int(
-                        contents_mem[operand2], 16)).lstrip('0x'))
-                    print(contents_reg0[operand1])
-                elif opr == "OR":
-                    contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) | int(
-                        contents_mem[operand2], 16)).lstrip('0x'))
-                    print(contents_reg0[operand1])
-                elif opr == "XOR":
-                    contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) ^ int(
-                        contents_reg0[operand2], 16)).lstrip('0x'))
-                    print(contents_reg0[operand1])
-                elif opr == "ADD":
-                    dec = (int(contents_reg0[operand1], 16)) + \
-                        (int(contents_mem[operand2], 16))
-                    contents_reg0[operand1] = str((hex(dec).lstrip('0x')))
-                elif opr == "MOV":
-                    contents_reg0[operand1] = str(contents_mem[operand2])
-                elif opr == "SUB":
-                    dec = (int(contents_reg0[operand1], 16)) - \
-                        (int(contents_mem[operand2], 16))
-                    contents_reg0 = str((hex(dec).lstrip('0x')))
-               
-                Label(window, text=str(opcode[opr]+ D+ word+ MOD+ reg0[operand1]+ mmm), font='ar 9').grid(row=4, column=3)
-                print(result)
-                
-        case "NEG":
-            rule=1
-            rrr = "011"
-            contents_reg0[y] = str(
-                (tohex(int(contents_reg0[y]*-1, 16), 8).lstrip('0x')))
-        case "DIV":
-            rule=1
-            rrr = '110'
+        elif operand1 in reg0 and operand2[0] == "[":
+            rule=3
+            operand2 = operand2.lstrip("[")
+            operand2 = operand2.rstrip("]")
+            print(operand2)
+            if opr == "AND":
+                contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) & int(
+                    contents_mem[operand2], 16)).lstrip('0x'))
+                print(contents_reg0[operand1])
+            elif opr == "OR":
+                contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) | int(
+                    contents_mem[operand2], 16)).lstrip('0x'))
+                print(contents_reg0[operand1])
+            elif opr == "XOR":
+                contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) ^ int(
+                    contents_reg0[operand2], 16)).lstrip('0x'))
+                print(contents_reg0[operand1])
+            elif opr == "ADD":
+                dec = (int(contents_reg0[operand1], 16)) + \
+                    (int(contents_mem[operand2], 16))
+                contents_reg0[operand1] = str((hex(dec).lstrip('0x')))
+            elif opr == "MOV":
+                contents_reg0[operand1] = str(contents_mem[operand2])
+            elif opr == "SUB":
+                dec = (int(contents_reg0[operand1], 16)) - \
+                    (int(contents_mem[operand2], 16))
+                contents_reg0 = str((hex(dec).lstrip('0x')))
+            
+            Label(window, text=str(opcode[opr]+ D+ word+ MOD+ reg0[operand1]+ mmm), font='ar 9').grid(row=4, column=3)
+            print(result)
+            
+    if opr=="NEG":
+        rule=1
+        rrr = "011"
+        contents_reg0[y] = str(
+            (tohex(int(contents_reg0[y]*-1, 16), 8).lstrip('0x')))
+    if opr=="DIV":
+        rule=1
+        rrr = '110'
 
-        case "INC":
-            rule=1
-            rrr = "000"
-            dec = int(contents_reg0[y], 16)+1
+    if opr=="INC":
+        rule=1
+        rrr = "000"
+        dec = int(contents_reg0[y], 16)+1
 
-            contents_reg0[y]=str(hex(dec).lstrip('0x'))
-        case "MUL":
-            rule=1
-            rrr = "100"
+        contents_reg0[y]=str(hex(dec).lstrip('0x'))
+    if opr=="MUL":
+        rule=1
+        rrr = "100"
 
-        case "NOT":
-            rule=1
-            rrr = '010'
-            contents_reg0[y] = str(
-                hex((~int(contents_reg0[y], 16))).replace('0x', ""))
-            print(contents_reg0[y])
-        case "IMUL":
-            rule=1
-            rrr = "101"
-        case "IDIV":
-            rule=1
-            rrr = "111"
-        case "DEC":
-            rule=1
-            rrr = '001'
-            dec = int(contents_reg0[y], 16)-1
-            print(tohex(dec, 64).lstrip('0x'))
+    if opr=="NOT":
+        rule=1
+        rrr = '010'
+        contents_reg0[y] = str(
+            hex((~int(contents_reg0[y], 16))).replace('0x', ""))
+        print(contents_reg0[y])
+    if opr=="IMUL":
+        rule=1
+        rrr = "101"
+    if opr=="IDIV":
+        rule=1
+        rrr = "111"
+    if opr=="DEC":
+        rule=1
+        rrr = '001'
+        dec = int(contents_reg0[y], 16)-1
+        print(tohex(dec, 64).lstrip('0x'))
     if bool == False:
         print(opcode[opr], D, word, MOD, rrr, reg0[y])
         Label(window,text=str(opcode[opr]+ D+ word+ MOD+ rrr+ reg0[y])).grid(row=4, column=3)
