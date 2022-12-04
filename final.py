@@ -25,20 +25,22 @@ contents_mem = {"M0000": "00", "M0001": "00", "M0010": "00", "M0011": "00", "M01
                 "M1100": "00", "M1101": "00", "M1110": "00", "M1111": "00"}
 
 # contents of 16 bits registers
-contents_reg0 = {"AX": "0000", "CX": "0000", "DX": "0000",
-                 "BX": "0000", "SP": "0000", "BP": "0000", "SI": "0000", "DI": "0000"}
+contents_reg0 = {"AL": "0000", "CL": "0000", "DL": "0000",
+                 "BL": "0000", "AH": "0000", "BH": "0000", "CH": "0000", "DH": "0000"}
 
 
 operand1 = ""
 operand2 = ""
-D = 1
-word = 1
+D = "1"
+word = "1"
 MOD = '11'
 
-
 def getvals():
+    global inps
+    inps=instructionentry.get()
+
     start()
-    Label(window, text='10101010 00001111', font='ar 9').grid(row=4, column=3)
+    # Label(window, text='10101010 00001111', font='ar 9').grid(row=4, column=3)
 
 
 def tohex(val, nbits):
@@ -48,7 +50,7 @@ def tohex(val, nbits):
 def Direction():
     global D
     if operand1[0] == "[":
-        D = 0
+        D = "0"
 
 
 def MOD_1():
@@ -65,14 +67,14 @@ Label(window, text='Assembly Language to Machine Code Convertor',
 
 
 def start():
-    global D, word, MOD, operand1, operand2, reg0, contents_reg0, contents_mem, opcode
+    global D, word, MOD, operand1, operand2, reg0, contents_reg0, contents_mem, opcode,inps
     result=""
-    mmm = 111
-    D = 1
-    word = 1
+    mmm = "111"
+    D = "1"
+    word = "1"
     MOD = '11'
     bool = False
-    inst =str(instructionvalue.get()) 
+    inst =str(inps)
     x = inst.split(" ")
     opr = x[0]
     y = x[1]
@@ -109,9 +111,8 @@ def start():
                     dec = (int(contents_reg0[operand1], 16)) - \
                         (int(contents_reg0[operand2], 16))
                     contents_reg0 = str((hex(dec).lstrip('0x')))
-                result=str(opcode[opr], D, word, MOD, reg0[operand1], reg0[operand2])
                 Label(window, text=str(
-                    opcode[opr], D, word, MOD, reg0[operand1], reg0[operand2]), font='ar 9').grid(row=4, column=3)
+                    opcode[opr]+ D+word+ MOD+ reg0[operand1]+ reg0[operand2]), font='ar 9').grid(row=4, column=3)
             elif operand1[0] == "[" and operand2 in reg0:
                 operand1 = operand1.lstrip("[")
                 operand1 = operand1.rstrip("]")
@@ -137,9 +138,10 @@ def start():
                 elif opr == "SUB":
                     dec = (int(contents_mem[operand1], 16)) - \
                         (int(contents_reg0[operand2], 16))
-                    contents_mem = str((hex(dec).lstrip('0x')))
-                result=str(opcode[opr], D, word, MOD, mmm, reg0[operand2])
-                Label(window, text=str(opcode[opr], D, word, MOD, mmm, reg0[operand2]), font='ar 9').grid(row=4, column=3)
+                    contents_mem[operand1] = str((hex(dec).lstrip('0x')))
+                Label(window,text=str(opcode[opr]+D+word+MOD+reg0[operand2]+mmm)).grid(row=4, column=3)
+
+                
 
             elif operand1 in reg0 and operand2[0] == "[":
                 operand2 = operand2.lstrip("[")
@@ -167,8 +169,9 @@ def start():
                     dec = (int(contents_reg0[operand1], 16)) - \
                         (int(contents_mem[operand2], 16))
                     contents_reg0 = str((hex(dec).lstrip('0x')))
-                Label(window, text=str(opcode[opr], D, word, MOD, reg0[operand1], mmm), font='ar 9').grid(row=4, column=3)
-                
+               
+                Label(window, text=str(opcode[opr]+ D+ word+ MOD+ reg0[operand1]+ mmm), font='ar 9').grid(row=4, column=3)
+                print(result)
 
         case "NEG":
             rrr = "011"
@@ -180,7 +183,8 @@ def start():
         case "INC":
             rrr = "000"
             dec = int(contents_reg0[y], 16)+1
-            print(hex(dec).lstrip('0x'))
+
+            contents_reg0[y]=str(hex(dec).lstrip('0x'))
         case "MUL":
             rrr = "100"
 
@@ -199,6 +203,7 @@ def start():
             print(tohex(dec, 64).lstrip('0x'))
     if bool == False:
         print(opcode[opr], D, word, MOD, rrr, reg0[y])
+        Label(window,text=str(opcode[opr]+ D+ word+ MOD+ rrr+ reg0[y])).grid(row=4, column=3)
     sets()
 
 # Field name
@@ -206,14 +211,14 @@ instruction = Label(window, text='Enter instruction:',
                     font='ar 9', padx=30, pady=20)
 output = Label(window, text='Output:', font='ar 9', pady=20)
 # Creating registers
-reg1 = Label(window, text='Reg1:', font='ar 9')
-reg2 = Label(window, text='Reg2:', font='ar 9')
-reg3 = Label(window, text='Reg3:', font='ar 9')
-reg4 = Label(window, text='Reg4:', font='ar 9')
-reg5 = Label(window, text='Reg5:', font='ar 9')
-reg6 = Label(window, text='Reg6:', font='ar 9')
-reg7 = Label(window, text='Reg7:', font='ar 9')
-reg8 = Label(window, text='Reg8:', font='ar 9')
+reg1 = Label(window, text='AL:', font='ar 9')
+reg2 = Label(window, text='BL:', font='ar 9')
+reg3 = Label(window, text='CL:', font='ar 9')
+reg4 = Label(window, text='DL:', font='ar 9')
+reg5 = Label(window, text='AH:', font='ar 9')
+reg6 = Label(window, text='BH:', font='ar 9')
+reg7 = Label(window, text='CH:', font='ar 9')
+reg8 = Label(window, text='DH:', font='ar 9')
 # Creating memory locations
 mem1 = Label(window, text='0000', font='ar 9', padx=10)
 mem2 = Label(window, text='0001', font='ar 9', padx=10)
@@ -265,7 +270,7 @@ mem15.grid(row=20, column=1)
 mem16.grid(row=21, column=1)
 
 # variable to store data
-instructionvalue = StringVar
+instructionvalue = StringVar()
 outputvalue = StringVar
 # Storing values in registers
 reg1value = StringVar
@@ -304,21 +309,84 @@ reg5value = StringVar(window,contents_reg0["AH"])
 reg6value = StringVar(window,contents_reg0["BH"])
 reg7value = StringVar(window,contents_reg0["CH"])
 reg8value = StringVar(window,contents_reg0["DH"])
+mem1value = StringVar(window,contents_mem["M0000"])
+mem2value = StringVar(window,contents_mem["M0001"])
+mem3value = StringVar(window,contents_mem["M0010"])
+mem4value = StringVar(window,contents_mem["M0011"])
+mem5value = StringVar(window,contents_mem["M0100"])
+mem6value = StringVar(window,contents_mem["M0101"])
+mem7value = StringVar(window,contents_mem["M0110"])
+mem8value = StringVar(window,contents_mem["M0111"])
+mem9value = StringVar(window,contents_mem["M1000"])
+mem10value = StringVar(window,contents_mem["M1001"])
+mem11value = StringVar(window,contents_mem["M1010"])
+mem12value = StringVar(window,contents_mem["M1011"])
+mem13value = StringVar(window,contents_mem["M1100"])
+mem14value = StringVar(window,contents_mem["M1101"])
+mem15value = StringVar(window,contents_mem["M1110"])
+mem16value = StringVar(window,contents_mem["M1111"])
 
 
 
 def sets():
-    global reg1value,reg2value,reg3value,reg4value,reg5value,reg6value,reg7value,reg8value
-    reg1value = StringVar(window,contents_reg0["AL"])
-    reg2value = StringVar(window,contents_reg0["BL"])
-    reg3value = StringVar(window,contents_reg0["CL"])
-    reg4value = StringVar(window,contents_reg0["DL"])
-    reg5value = StringVar(window,contents_reg0["AH"])
-    reg6value = StringVar(window,contents_reg0["BH"])
-    reg7value = StringVar(window,contents_reg0["CH"])
-    reg8value = StringVar(window,contents_reg0["DH"])
+    global reg1value,reg2value,reg3value,reg4value,reg5value,reg6value,reg7value,reg8value,mem1value,mem2value,mem3value,mem4value,mem5value,mem6value,mem7value,mem8value,mem9value,mem10value,mem11value,mem12value,mem13value,mem14value,mem15value,mem16value
+
+    print("in")
+    print(contents_reg0["AL"])
+    
+    reg1entry.delete(0,100)
+    reg1entry.insert(0,contents_reg0["AL"])
+    reg2entry.delete(0,END)
+    reg2entry.insert(0,contents_reg0["BL"])
+    reg3entry.delete(0,END)
+    reg3entry.insert(0,contents_reg0["CL"])
+    reg4entry.delete(0,END)
+    reg4entry.insert(0,contents_reg0["DL"])
+    reg5entry.delete(0,END)
+    reg5entry.insert(0,contents_reg0["AH"])
+    reg6entry.delete(0,END)
+    reg6entry.insert(0,contents_reg0["BH"])
+    reg7entry.delete(0,END)
+    reg7entry.insert(0,contents_reg0["CH"])
+    reg8entry.delete(0,END)
+    reg8entry.insert(0,contents_reg0["DH"])
+    mem1entry.delete(0,END)
+    mem1entry.insert(0,contents_mem["M0000"])
+    mem2entry.delete(0,END)
+    mem2entry.insert(0,contents_mem["M0001"])
+    mem3entry.delete(0,END)
+    mem3entry.insert(0,contents_mem["M0010"])
+    mem4entry.delete(0,END)
+    mem4entry.insert(0,contents_mem["M0011"])
+    mem5entry.delete(0,END)
+    mem5entry.insert(0,contents_mem["M0100"])
+    mem6entry.delete(0,END)
+    mem6entry.insert(0,contents_mem["M0101"])
+    mem7entry.delete(0,END)
+    mem7entry.insert(0,contents_mem["M0110"])
+    mem8entry.delete(0,END)
+    mem8entry.insert(0,contents_mem["M0111"])
+    mem9entry.delete(0,END)
+    mem9entry.insert(0,contents_mem["M1000"])
+    mem10entry.delete(0,END)
+    mem10entry.insert(0,contents_mem["M1001"])
+    mem11entry.delete(0,END)
+    mem11entry.insert(0,contents_mem["M1010"])
+    mem12entry.delete(0,END)
+    mem12entry.insert(0,contents_mem["M1011"])
+    mem13entry.delete(0,END)
+    mem13entry.insert(0,contents_mem["M1100"])
+    mem14entry.delete(0,END)
+    mem14entry.insert(0,contents_mem["M1101"])
+    mem15entry.delete(0,END)
+    mem15entry.insert(0,contents_mem["M1110"])
+    mem16entry.delete(0,END)
+    mem16entry.insert(0,contents_mem["M1111"])
+
 # Creating entry field
-instructionentry = Entry(window, textvariable=instructionvalue)
+# instructionentry = Entry(window, textvariable=instructionvalue)
+instructionentry= Entry(window, width= 42)
+instructionentry.place(relx= .5, rely= .5, anchor= CENTER)
 outputentry = Entry(window, textvariable=outputvalue)
 # Creating entry fields for registers
 reg1entry = Entry(window, textvariable=reg1value)
@@ -378,7 +446,6 @@ mem13entry.grid(row=18, column=2)
 mem14entry.grid(row=19, column=2)
 mem15entry.grid(row=20, column=2)
 mem16entry.grid(row=21, column=2)
-
 # Creating conversion button
 Button(text='Convert', command=getvals).grid(row=3, column=3)
 window.mainloop()
