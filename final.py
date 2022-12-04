@@ -1,5 +1,7 @@
 # tkinter window
+import App as application
 from tkinter import *
+import pygame
 window = Tk()
 window.title("Main Window")
 window.geometry("750x600")
@@ -34,7 +36,9 @@ operand2 = ""
 D = "1"
 word = "1"
 MOD = '11'
-
+rule=0
+def getapp():
+    application.run(rule)
 def getvals():
     global inps
     inps=instructionentry.get()
@@ -67,7 +71,7 @@ Label(window, text='Assembly Language to Machine Code Convertor',
 
 
 def start():
-    global D, word, MOD, operand1, operand2, reg0, contents_reg0, contents_mem, opcode,inps
+    global D, word, MOD, operand1, operand2, reg0, contents_reg0, contents_mem, opcode,inps,rule
     result=""
     mmm = "111"
     D = "1"
@@ -89,6 +93,7 @@ def start():
             Direction()
             MOD_1()
             if operand1 in reg0 and operand2 in reg0:
+                rule=1
                 if opr == "AND":
                     contents_reg0[operand1] = str(hex(int(contents_reg0[operand1], 16) & int(
                         contents_reg0[operand2], 16)).lstrip('0x'))
@@ -114,6 +119,7 @@ def start():
                 Label(window, text=str(
                     opcode[opr]+ D+word+ MOD+ reg0[operand1]+ reg0[operand2]), font='ar 9').grid(row=4, column=3)
             elif operand1[0] == "[" and operand2 in reg0:
+                rule=2
                 operand1 = operand1.lstrip("[")
                 operand1 = operand1.rstrip("]")
                 print(operand1)
@@ -144,6 +150,7 @@ def start():
                 
 
             elif operand1 in reg0 and operand2[0] == "[":
+                rule=3
                 operand2 = operand2.lstrip("[")
                 operand2 = operand2.rstrip("]")
                 print(operand2)
@@ -172,40 +179,49 @@ def start():
                
                 Label(window, text=str(opcode[opr]+ D+ word+ MOD+ reg0[operand1]+ mmm), font='ar 9').grid(row=4, column=3)
                 print(result)
-
+                
         case "NEG":
+            rule=1
             rrr = "011"
             contents_reg0[y] = str(
                 (tohex(int(contents_reg0[y]*-1, 16), 8).lstrip('0x')))
         case "DIV":
+            rule=1
             rrr = '110'
 
         case "INC":
+            rule=1
             rrr = "000"
             dec = int(contents_reg0[y], 16)+1
 
             contents_reg0[y]=str(hex(dec).lstrip('0x'))
         case "MUL":
+            rule=1
             rrr = "100"
 
         case "NOT":
+            rule=1
             rrr = '010'
             contents_reg0[y] = str(
                 hex((~int(contents_reg0[y], 16))).replace('0x', ""))
             print(contents_reg0[y])
         case "IMUL":
+            rule=1
             rrr = "101"
         case "IDIV":
+            rule=1
             rrr = "111"
         case "DEC":
+            rule=1
             rrr = '001'
             dec = int(contents_reg0[y], 16)-1
             print(tohex(dec, 64).lstrip('0x'))
     if bool == False:
         print(opcode[opr], D, word, MOD, rrr, reg0[y])
         Label(window,text=str(opcode[opr]+ D+ word+ MOD+ rrr+ reg0[y])).grid(row=4, column=3)
+       
     sets()
-
+    
 # Field name
 instruction = Label(window, text='Enter instruction:',
                     font='ar 9', padx=30, pady=20)
@@ -448,4 +464,5 @@ mem15entry.grid(row=20, column=2)
 mem16entry.grid(row=21, column=2)
 # Creating conversion button
 Button(text='Convert', command=getvals).grid(row=3, column=3)
+Button(text='simulate', command=getapp).grid(row=3, column=4)
 window.mainloop()

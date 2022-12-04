@@ -2,14 +2,14 @@ import pygame
 
 
 
-def run():
+def run(x):
 
    
 # write(screen, x - 20, y, "ALU", width, i)
-    color = (220, 208, 255)
-    twoColor = (250, 250, 250)
-    threeColor = (250, 250, 250)
-    fourColor = (250, 250, 250)
+    color = (250, 250, 255)
+    colorReg = (250, 250, 250)
+    colorM = (250, 250, 250)
+    colorBus = (250, 250, 250)
     fiveColor = (250, 250, 250)
     sixColor = (250, 250, 250)
     controlunitColor = (250, 250, 250)
@@ -46,14 +46,14 @@ def run():
     screen = pygame.display.set_mode((1900, 980))
 
     def collective_function_drawing():
-        one = pygame.draw.rect(screen, color, (50, 50, 130, 40))
-        two = pygame.draw.rect(screen, color, (190, 50, 130, 40))
-        three = pygame.draw.rect(screen, color, (50, 100, 130, 40))
-        four = pygame.draw.rect(screen, color, (190, 100, 130, 40))
-        five = pygame.draw.rect(screen, color, (50, 150, 130, 40))
-        six = pygame.draw.rect(screen, color, (190, 150,130, 40))
-        seven = pygame.draw.rect(screen, color, (50, 200, 130, 40))
-        eight = pygame.draw.rect(screen, color, (190, 200,130, 40))
+        one = pygame.draw.rect(screen, colorReg, (50, 50, 130, 40))
+        two = pygame.draw.rect(screen, colorReg, (190, 50, 130, 40))
+        three = pygame.draw.rect(screen, colorReg, (50, 100, 130, 40))
+        four = pygame.draw.rect(screen, colorReg, (190, 100, 130, 40))
+        five = pygame.draw.rect(screen, colorReg, (50, 150, 130, 40))
+        six = pygame.draw.rect(screen, colorReg, (190, 150,130, 40))
+        seven = pygame.draw.rect(screen, colorReg, (50, 200, 130, 40))
+        eight = pygame.draw.rect(screen, colorReg, (190, 200,130, 40))
         # control_unit = pygame.draw.rect(screen, color, (240, 50, 40, 40))
         increment=122
         alu=pygame.draw.polygon(screen, color,
@@ -91,11 +91,12 @@ def run():
         # cl = pygame.draw.rect(screen, color, (800, 50, 40, 40))
         # dl = pygame.draw.rect(screen, color, (840, 50, 40, 40))
         internal=pygame.draw.rect(screen, color, (1300, 440,260, 120))
-        dataBusALU = pygame.draw.rect(screen, color, (50, 480,1250, 20))
-        sp = pygame.draw.rect(screen, color, (50, 250,270, 40))
-        bp = pygame.draw.rect(screen, color, (50, 300,270, 40))
-        si = pygame.draw.rect(screen, color, (50, 350, 270, 40))
-        di = pygame.draw.rect(screen, color, (50, 400,270, 40))
+        memory=pygame.draw.rect(screen, colorM, (1300, 440,260, 120))
+        dataBusALU = pygame.draw.rect(screen, colorBus, (50, 480,1250, 20))
+        sp = pygame.draw.rect(screen, colorReg, (50, 250,270, 40))
+        bp = pygame.draw.rect(screen, colorReg, (50, 300,270, 40))
+        si = pygame.draw.rect(screen, colorReg, (50, 350, 270, 40))
+        di = pygame.draw.rect(screen, colorReg, (50, 400,270, 40))
         line1=pygame.draw.line(screen, color, (1400,215), (1400, 60), 2)
         line2=pygame.draw.line(screen, color, (300,370), (400, 370), 2)
         line3=pygame.draw.line(screen, color, (400,370), (400, 480), 2)
@@ -110,13 +111,24 @@ def run():
         line9=pygame.draw.line(screen, color, (1630,700), (1400, 700), 2)
         line9=pygame.draw.line(screen, color, (1300,710), (1225, 710), 2)
         line9=pygame.draw.line(screen, color, (950,740), (820, 740), 2)
+        #labels
         
         # pygame.draw.polygon(self.screen, self.color,
                             # [(self.end_x, self.end_y), (self.end_x - 10, self.end_y - 5),
                             #  (self.end_x - 10, self.end_y + 5)])
     while True:
         pygame.init()
-
+        if x==1:
+            colorReg=(255,0,0)
+            colorBus=(255,0,0)
+        if x==2:
+            colorReg=(0,255,0)
+            colorM=(0,255,0)
+            colorBus=(0,255,0)
+        if x==3:
+            
+            colorM=(0,255,0)
+            colorBus=(0,255,0)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
