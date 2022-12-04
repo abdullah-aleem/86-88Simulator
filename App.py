@@ -72,13 +72,16 @@ def run():
         # # memory_interface=ellipse()
         # # summation=summation()
         busControlLogic = pygame.draw.rect(screen, color, (1300, 650, 100, 100))
-        insQ=pygame.draw.rect(screen, color, (950, 750, 275, 60))
+        insQ=pygame.draw.rect(screen, color, (950, 700, 275, 60))
         eusc=pygame.draw.rect(screen, color, (700, 730, 120, 120))
         es = pygame.draw.rect(screen, color, (1300, 215, 260, 40))
         cs = pygame.draw.rect(screen, color, (1300, 260, 260, 40))
         ss = pygame.draw.rect(screen, color, (1300, 305, 260, 40))
         ds = pygame.draw.rect(screen, color, (1300, 350, 260, 40))
         ip = pygame.draw.rect(screen, color, (1300, 395,260, 40))
+        adder = pygame.draw.rect(screen, color, (1330, 60, 200, 40))
+        alu = pygame.draw.rect(screen, color, (255, 700, 200, 40))
+        
         # ah = pygame.draw.rect(screen, color, (560, 50, 40, 40))
         # bh = pygame.draw.rect(screen, color, (600, 50, 40, 40))
         # ch = pygame.draw.rect(screen, color, (640, 50, 40, 40))
@@ -93,7 +96,24 @@ def run():
         bp = pygame.draw.rect(screen, color, (50, 300,270, 40))
         si = pygame.draw.rect(screen, color, (50, 350, 270, 40))
         di = pygame.draw.rect(screen, color, (50, 400,270, 40))
-
+        line1=pygame.draw.line(screen, color, (1400,215), (1400, 60), 2)
+        line2=pygame.draw.line(screen, color, (300,370), (400, 370), 2)
+        line3=pygame.draw.line(screen, color, (400,370), (400, 480), 2)
+        line4=pygame.draw.line(screen, color, (500,490), (500, 930), 2)
+        line5=pygame.draw.line(screen, color, (455,930), (750, 930), 2)
+        line6=pygame.draw.line(screen, color, (750,930), (750, 850), 2)
+        line7=pygame.draw.line(screen, color, (500,720), (455, 720), 2)
+        line8=pygame.draw.line(screen, color, (500,570), (430, 570), 2)
+        line8=pygame.draw.line(screen, color, (500,570), (430, 570), 2)
+        line9=pygame.draw.line(screen, color, (1530,80), (1630, 80), 2)
+        line9=pygame.draw.line(screen, color, (1630,80), (1630, 700), 2)
+        line9=pygame.draw.line(screen, color, (1630,700), (1400, 700), 2)
+        line9=pygame.draw.line(screen, color, (1300,710), (1225, 710), 2)
+        line9=pygame.draw.line(screen, color, (950,740), (820, 740), 2)
+        
+        # pygame.draw.polygon(self.screen, self.color,
+                            # [(self.end_x, self.end_y), (self.end_x - 10, self.end_y - 5),
+                            #  (self.end_x - 10, self.end_y + 5)])
     while True:
         pygame.init()
 
