@@ -146,7 +146,7 @@ def start():
                     (int(contents_reg0[operand2], 16))
                 contents_mem[operand1] = str((hex(dec).lstrip('0x')))
             Label(window, text=str(
-                opcode[opr]+D+word+MOD+reg0[operand2]+mmm)).grid(row=4, column=3)
+                opcode[opr]+D+word+MOD+reg0[operand2]+mmm)).grid(row=4, column=3).grid(row=4, column=3)
 
             
 

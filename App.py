@@ -190,10 +190,10 @@ def run(x):
             colorBus=(0,255,0)
             alucolor=(0,255,0)
         if x==3:
-            
-            colorM=(0,255,0)
-            colorBus=(0,255,0)
-            alucolor=(0,255,0)
+            colorReg = (0, 0, 255)
+            colorM=(0,0,255)
+            colorBus=(0,0,255)
+            alucolor = (0, 0, 255)
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 exit()
